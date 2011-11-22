@@ -12,17 +12,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using AddressBook;
+
 namespace AddressBookClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ContactViewAndEdit.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ContactViewAndEdit : UserControl
     {
-        public MainWindow()
+        public ContactViewAndEdit()
         {
             InitializeComponent();
-            contactEditor.SetContact(new AddressBook.Contact());
+        }
+
+        public void SetContact(Contact contact)
+        {
+            DataContext = new ContactViewModel(contact);
         }
     }
 }

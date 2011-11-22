@@ -18,5 +18,10 @@ namespace AddressBook
         public string Country { get; set; }
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string CellPhone { get; set; }
+        public string Company { get; set; }
+        public string JobTitle { get; set; }
+        public string EMail { get; set; }
+        public string HomePage { get; set; }
     }
 }

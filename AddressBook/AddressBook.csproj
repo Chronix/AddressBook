@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Contact.cs" />
     <Compile Include="ContactBook.cs" />
-    <Compile Include="Collections.cs" />
+    <Compile Include="RefreshableCollection.cs" />
     <Compile Include="IMAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
