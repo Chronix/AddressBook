@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using AddressBook;
+using AddressBook.DisplayHelpers.WPF;
 
 namespace AddressBookClient
 {

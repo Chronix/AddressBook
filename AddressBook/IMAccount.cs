@@ -15,6 +15,7 @@ namespace AddressBook
         GTalk
     }
 
+    [Serializable]
     public class IMAccount
     {
         public IMType Type { get; set; }

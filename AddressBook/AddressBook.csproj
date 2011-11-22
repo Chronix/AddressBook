@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Contact.cs" />
     <Compile Include="ContactBook.cs" />
+    <Compile Include="DisplayHelpers\AutoDisplayAttribute.cs" />
+    <Compile Include="DisplayHelpers\WPF\ContactViewModel.cs" />
     <Compile Include="RefreshableCollection.cs" />
     <Compile Include="IMAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

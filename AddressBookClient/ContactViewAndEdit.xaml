@@ -4,23 +4,35 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" xmlns:my="clr-namespace:AddressBookClient">
     <UserControl.Resources>
         
     </UserControl.Resources>
     <DockPanel>
         <ScrollViewer DockPanel.Dock="Top">
             <DockPanel LastChildFill="False">
-                <ItemsControl x:Name="aaa" DockPanel.Dock="Top" ItemsSource="{Binding Items}" Style="{DynamicResource GridItemsControl}">
+                <TextBlock DockPanel.Dock="Top" Margin="5" FontWeight="Bold" FontSize="28" Height="32" VerticalAlignment="Top">Contact</TextBlock>
+                <ItemsControl x:Name="aaa" DockPanel.Dock="Top" ItemsSource="{Binding Items}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding DisplayName}" />
-                                <TextBox Text="{Binding Value}" Width="200" />
-                            </StackPanel>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding DisplayName}" HorizontalAlignment="Right" />
+                                <TextBox Grid.Column="1" Text="{Binding Path=Value, Mode=TwoWay}" Width="200" />
+                            </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <Grid DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="" />
+                </Grid>
             </DockPanel>
         </ScrollViewer>
     </DockPanel>

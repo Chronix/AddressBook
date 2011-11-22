@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AddressBook
 {
+    [Serializable]
     public class RefreshableCollection<T> : ObservableCollection<T>
     {
         public void Refresh()
