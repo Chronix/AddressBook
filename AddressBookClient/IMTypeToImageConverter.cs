@@ -10,7 +10,7 @@ using AddressBook;
 
 namespace AddressBookClient
 {
-    [ValueConversion(typeof(IMType), typeof(ImageBrush))]
+    [ValueConversion(typeof(IMType), typeof(ImageSource))]
     public class IMTypeToImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -28,7 +28,7 @@ namespace AddressBookClient
                 case IMType.Yahoo: uri = new Uri("/res/yahoo.png", UriKind.Relative); break;
             }
 
-            return new ImageBrush(new BitmapImage(uri));
+            return new BitmapImage(uri);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

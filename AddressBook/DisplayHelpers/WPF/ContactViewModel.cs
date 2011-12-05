@@ -18,12 +18,17 @@ namespace AddressBook.DisplayHelpers.WPF
         private Contact _contact;
 
         public ObservableCollection<ContactViewModelItem> Items { get; private set; }
+        public RefreshableCollection<IMAccount> IMAccounts { get; private set; }
+
         public string ImagePath { get; set; }
 
         public ContactViewModel(Contact contact)
         {
             Items = new ObservableCollection<ContactViewModelItem>();
             _contact = contact;
+            IMAccounts = new RefreshableCollection<IMAccount>();
+
+            foreach (var acc in _contact.IMAccounts) IMAccounts.Add(acc);
 
             foreach (PropertyInfo prop in _contactProps)
             {
@@ -62,6 +67,10 @@ namespace AddressBook.DisplayHelpers.WPF
             }
 
             _contact.ImagePath = ImagePath;
+
+            _contact.IMAccounts.Clear();
+
+            foreach (var acc in IMAccounts) _contact.IMAccounts.Add(acc);
         }
     }
 }

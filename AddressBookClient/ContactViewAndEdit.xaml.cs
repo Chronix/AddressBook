@@ -47,5 +47,18 @@ namespace AddressBookClient
                 imagePathBox.Text = ofd.FileName;
             }
         }
+
+        private void IMServiceButton_Click(object sender, RoutedEventArgs args)
+        {
+            Button source = args.Source as Button;
+            IMType type = (IMType)Enum.Parse(typeof(IMType), source.Tag.ToString());
+            IMAccount acc = new IMAccount { Type = type };
+            ((ContactViewModel)DataContext).IMAccounts.Add(acc);
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs args)
+        {
+            ((ContactViewModel)DataContext).FillBack();
+        }
     }
 }

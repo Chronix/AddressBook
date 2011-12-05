@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <my:IMTypeToImageConverter x:Key="IMConverter" />
         <Style TargetType="TextBox" x:Key="BrowseTextboxStyle">
             <Setter Property="Template">
                 <Setter.Value>
@@ -28,7 +29,91 @@
     				</ControlTemplate>
     			</Setter.Value>
             </Setter>
-        </Style>      
+        </Style>
+        <Style TargetType="Button" x:Key="ServiceButtonBase">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Margin" Value="5" />
+            <EventSetter Event="Click" Handler="IMServiceButton_Click" />
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="AIMButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/aim.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="GTalkButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/gtalk.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="ICQButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/icq.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="JabberButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/jabber.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="MSNButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/msn.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ServiceButtonBase}" x:Key="YahooButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border Margin="-2" BorderBrush="LightBlue" BorderThickness="0.5" Opacity="1">
+                                <Image Name="ButtonImage" Source="/res/yahoo.png" Width="16" Height="16" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <DockPanel>
         <ScrollViewer DockPanel.Dock="Top">
@@ -60,6 +145,29 @@
                         <TextBox Grid.Column="1" Text="{Binding ImagePath, Mode=TwoWay}" Width="200" Style="{StaticResource BrowseTextboxStyle}" x:Name="imagePathBox" />
                     </Grid>
                 </ItemsControl>
+                <ListBox DockPanel.Dock="Top" HorizontalAlignment="Center" ItemsSource="{Binding IMAccounts}" MinWidth="200" Margin="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Margin="5" Grid.Column="0" Source="{Binding Path=Type, Converter={StaticResource IMConverter}}" Width="16" Height="16" />
+                                <TextBox Grid.Column="1" Text="{Binding Path=Account, Mode=TwoWay}" Width="200" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource AIMButton}" Tag="AIM" />
+                    <Button Style="{StaticResource GTalkButton}" Tag="GTalk" />
+                    <Button Style="{StaticResource ICQButton}" Tag="ICQ" />
+                    <Button Style="{StaticResource JabberButton}" Tag="Jabber" />
+                    <Button Style="{StaticResource MSNButton}" Tag="MSN" />
+                    <Button Style="{StaticResource YahooButton}" Tag="Yahoo" />
+                </StackPanel>
+                <Button DockPanel.Dock="Top" Content="Save changes" HorizontalAlignment="Right" Margin="10" />
             </DockPanel>
         </ScrollViewer>
     </DockPanel>
