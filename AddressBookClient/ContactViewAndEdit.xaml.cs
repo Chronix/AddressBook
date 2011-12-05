@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Microsoft.Win32;
+
 using AddressBook;
 using AddressBook.DisplayHelpers.WPF;
 
@@ -30,6 +32,20 @@ namespace AddressBookClient
         public void SetContact(Contact contact)
         {
             DataContext = new ContactViewModel(contact);
+        }
+
+        private void BrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Pictures|*.jpg;*.jpeg;*.gif;*.png;*.bmp";
+            ofd.CheckFileExists = true;
+            ofd.Multiselect = false;
+            bool? res = ofd.ShowDialog();
+            
+            if (res.HasValue && res.Value)
+            {
+                imagePathBox.Text = ofd.FileName;
+            }
         }
     }
 }

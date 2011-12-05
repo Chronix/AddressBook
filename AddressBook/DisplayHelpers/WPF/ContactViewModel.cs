@@ -18,6 +18,7 @@ namespace AddressBook.DisplayHelpers.WPF
         private Contact _contact;
 
         public ObservableCollection<ContactViewModelItem> Items { get; private set; }
+        public string ImagePath { get; set; }
 
         public ContactViewModel(Contact contact)
         {
@@ -42,6 +43,8 @@ namespace AddressBook.DisplayHelpers.WPF
                 item.Value = val.ToString();
                 Items.Add(item);
             }
+
+            ImagePath = _contact.ImagePath;
         }
 
         static ContactViewModel()
@@ -57,6 +60,8 @@ namespace AddressBook.DisplayHelpers.WPF
 
                 if (item != null) prop.SetValue(_contact, item.Value, null);
             }
+
+            _contact.ImagePath = ImagePath;
         }
     }
 }
