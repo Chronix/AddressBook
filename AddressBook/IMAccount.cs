@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Xml.Serialization;
 
 namespace AddressBook
 {
@@ -18,7 +18,10 @@ namespace AddressBook
     [Serializable]
     public class IMAccount
     {
+        [XmlAttribute("Type")]
         public IMType Type { get; set; }
+
+        [XmlAttribute("Value")]
         public string Account { get; set; }
     }
 }

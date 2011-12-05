@@ -167,7 +167,7 @@
                     <Button Style="{StaticResource MSNButton}" Tag="MSN" />
                     <Button Style="{StaticResource YahooButton}" Tag="Yahoo" />
                 </StackPanel>
-                <Button DockPanel.Dock="Top" Content="Save changes" HorizontalAlignment="Right" Margin="10" />
+                <Button DockPanel.Dock="Top" Content="Save changes" HorizontalAlignment="Right" Margin="10" Click="SaveButton_Click" />
             </DockPanel>
         </ScrollViewer>
     </DockPanel>

@@ -44,7 +44,6 @@
     <Compile Include="Contact.cs" />
     <Compile Include="ContactBook.cs" />
     <Compile Include="DisplayHelpers\AutoDisplayAttribute.cs" />
-    <Compile Include="DisplayHelpers\WPF\ContactViewModel.cs" />
     <Compile Include="RefreshableCollection.cs" />
     <Compile Include="IMAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

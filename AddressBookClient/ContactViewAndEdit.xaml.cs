@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 
 using AddressBook;
-using AddressBook.DisplayHelpers.WPF;
 
 namespace AddressBookClient
 {
@@ -24,6 +23,8 @@ namespace AddressBookClient
     /// </summary>
     public partial class ContactViewAndEdit : UserControl
     {
+        public Action OnSave { get; set; }
+
         public ContactViewAndEdit()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace AddressBookClient
         private void SaveButton_Click(object sender, RoutedEventArgs args)
         {
             ((ContactViewModel)DataContext).FillBack();
+            if (OnSave != null) OnSave();
         }
     }
 }

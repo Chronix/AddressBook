@@ -61,7 +61,7 @@ namespace AddressBook
         [AutoDisplay(false)]
         public string ImagePath { get; set; }
 
-        public RefreshableCollection<IMAccount> IMAccounts { get; private set; }
+        public RefreshableCollection<IMAccount> IMAccounts { get; set; }
 
         public Contact()
         {
@@ -71,6 +71,19 @@ namespace AddressBook
         public override string ToString()
         {
             return FirstName + " " + LastName;
+        }
+
+        public bool HasIMContact(IMType type)
+        {
+            var wanted = IMAccounts.Where(acc => acc.Type == type);
+
+            if (wanted.Count() > 0)
+            {
+                wanted = wanted.Where(acc => !string.IsNullOrWhiteSpace(acc.Account));
+
+                return wanted.Count() > 0;
+            }
+            else return false;
         }
     }
 }

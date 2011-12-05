@@ -7,73 +7,29 @@ using System.Xml.Serialization;
 namespace AddressBook
 {
     [Serializable]
-    public class ContactBook : ICollection<Contact>
+    public class ContactBook
     {
-        private RefreshableCollection<Contact> _contacts;
+        public RefreshableCollection<Contact> Contacts { get; set; }
 
+        [XmlIgnore]
         public bool ChangedSinceSave { get; set; }
+
+        [XmlIgnore]
         public string SavePath { get; set; }
 
-        #region ICOLLECTION MEMBERS
         public ContactBook()
         {
-            _contacts = new RefreshableCollection<Contact>();
-            ChangedSinceSave = true;
+            Contacts = new RefreshableCollection<Contact>();
         }
-
-        public void Add(Contact item)
-        {
-            _contacts.Add(item);
-            ChangedSinceSave = true;
-        }
-
-        public void Clear()
-        {
-            _contacts.Clear();
-            ChangedSinceSave = true;
-        }
-
-        public bool Contains(Contact item)
-        {
-            return _contacts.Contains(item);
-        }
-
-        public void CopyTo(Contact[] array, int arrayIndex)
-        {
-            _contacts.CopyTo(array, arrayIndex);
-        }
-
-        public int Count
-        {
-            get { return _contacts.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
-
-        public bool Remove(Contact item)
-        {
-            bool removed = _contacts.Remove(item);
-            ChangedSinceSave = removed;
-            return removed;
-        }
-
-        public IEnumerator<Contact> GetEnumerator()
-        {
-            return _contacts.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _contacts.GetEnumerator();
-        }
-        #endregion
 
         public void Refresh()
         {
-            _contacts.Refresh();
+            Contacts.Refresh();
+        }
+
+        public void Add(Contact ct)
+        {
+            Contacts.Add(ct);
         }
 
         public void Save(string path)
