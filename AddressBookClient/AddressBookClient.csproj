@@ -118,6 +118,15 @@
     <Resource Include="res\msn.png" />
     <Resource Include="res\yahoo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\AddContact.png" />
+    <Resource Include="res\NewBook.png" />
+    <Resource Include="res\OpenBook.png" />
+    <Resource Include="res\RemoveContact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="res\SaveBook.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

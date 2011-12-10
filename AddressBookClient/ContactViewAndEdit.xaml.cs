@@ -23,7 +23,7 @@ namespace AddressBookClient
     /// </summary>
     public partial class ContactViewAndEdit : UserControl
     {
-        public Action OnSave { get; set; }
+        public event EventHandler Saved;
 
         public ContactViewAndEdit()
         {
@@ -34,21 +34,7 @@ namespace AddressBookClient
         {
             DataContext = new ContactViewModel(contact);
         }
-
-        private void BrowseButton_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Pictures|*.jpg;*.jpeg;*.gif;*.png;*.bmp";
-            ofd.CheckFileExists = true;
-            ofd.Multiselect = false;
-            bool? res = ofd.ShowDialog();
-            
-            if (res.HasValue && res.Value)
-            {
-                imagePathBox.Text = ofd.FileName;
-            }
-        }
-
+        
         private void IMServiceButton_Click(object sender, RoutedEventArgs args)
         {
             Button source = args.Source as Button;
@@ -60,7 +46,12 @@ namespace AddressBookClient
         private void SaveButton_Click(object sender, RoutedEventArgs args)
         {
             ((ContactViewModel)DataContext).FillBack();
-            if (OnSave != null) OnSave();
+            OnSaved();
+        }
+
+        private void OnSaved()
+        {
+            if (Saved != null) Saved(this, EventArgs.Empty);
         }
     }
 }

@@ -58,9 +58,6 @@ namespace AddressBook
         [AutoDisplay(true, "Home Page")]
         public string HomePage { get; set; }
 
-        [AutoDisplay(false)]
-        public string ImagePath { get; set; }
-
         public RefreshableCollection<IMAccount> IMAccounts { get; set; }
 
         public Contact()

@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:AddressBookClient"
-        Title="AddressBook Example Client" Height="400" Width="600">
+        Title="AddressBook Example Client" Height="400" Width="600" Closing="Window_Closing">
     <Window.Resources>
         <RoutedUICommand Text="SendEMailCommand" x:Key="SendEMailCommand" />
         <RoutedUICommand Text="VOIPCallCommand" x:Key="VOIPCallCommand" />
@@ -43,34 +43,68 @@
                 <MenuItem Header="Remove Selected Contact" Command="{StaticResource RemoveSelectedCommand}" />
             </MenuItem>
         </Menu>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBarTray.Resources>                
+                <Style x:Key="tbBtnImageStyle" TargetType="Image">
+                    <Setter Property="MaxHeight" Value="16" />
+                    <Setter Property="MaxWidth" Value="16" />
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar>
+                <Button Command="New">
+                    <Image Source="/res/NewBook.png" Style="{StaticResource tbBtnImageStyle}" />
+                </Button>
+                <Button Command="Open">
+                    <Image Source="/res/OpenBook.png" Style="{StaticResource tbBtnImageStyle}" />
+                </Button>
+                <Button Command="Save">
+                    <Image Source="/res/SaveBook.png" Style="{StaticResource tbBtnImageStyle}" />
+                </Button>
+                <Separator />
+                <Button Command="{StaticResource AddContactCommand}">
+                    <Image Source="/res/AddContact.png" Style="{StaticResource tbBtnImageStyle}" />
+                </Button>
+                <Button Command="{StaticResource RemoveSelectedCommand}">
+                    <Image Source="/res/RemoveContact.png" Style="{StaticResource tbBtnImageStyle}" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Column="0" ItemsSource="{Binding Contacts}" x:Name="lstContacts">
-                <ListBox.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Send e-mail..." Command="{StaticResource SendEMailCommand}" />
-                        <MenuItem Header="VOIP call...">
-                            <MenuItem Header="Home Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="home" />
-                            <MenuItem Header="Work Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="work" />
-                            <MenuItem Header="Cell Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="cell" />
-                        </MenuItem>
-                        <MenuItem Header="Contact on">
-                            <MenuItem Header="AIM" Command="{StaticResource ContactOnIMCommand}" CommandParameter="AIM" />
-                            <MenuItem Header="GTalk" Command="{StaticResource ContactOnIMCommand}" CommandParameter="GTalk" />
-                            <MenuItem Header="ICQ" Command="{StaticResource ContactOnIMCommand}" CommandParameter="ICQ" />
-                            <MenuItem Header="Jabber" Command="{StaticResource ContactOnIMCommand}" CommandParameter="Jabber" />
-                            <MenuItem Header="MSN" Command="{StaticResource ContactOnIMCommand}" CommandParameter="MSN" />
-                            <MenuItem Header="Yahoo" Command="{StaticResource ContactOnIMCommand}" CommandParameter="Yahoo" />
-                        </MenuItem>
-                        <Separator />
-                        <MenuItem Header="Remove Contact" Command="{StaticResource RemoveSelectedCommand}" />
-                    </ContextMenu>
-                </ListBox.ContextMenu>
-            </ListBox>
-            <local:ContactViewAndEdit Grid.Column="1" x:Name="contactEditor" Visibility="Collapsed" />
+            <DockPanel Grid.Column="0">
+                <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+                    <TextBlock DockPanel.Dock="Left" Text="Search:" Margin="3" />
+                    <TextBox DockPanel.Dock="Right" Margin="0 2 2 2" x:Name="txtSearch" TextChanged="txtSearch_TextChanged" />
+                </DockPanel>
+                <ListBox DockPanel.Dock="Top" ItemsSource="{Binding Contacts}" x:Name="lstContacts">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Send e-mail..." Command="{StaticResource SendEMailCommand}" />
+                            <MenuItem Header="VOIP call...">
+                                <MenuItem Header="Home Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="home" />
+                                <MenuItem Header="Work Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="work" />
+                                <MenuItem Header="Cell Phone" Command="{StaticResource VOIPCallCommand}" CommandParameter="cell" />
+                            </MenuItem>
+                            <MenuItem Header="Contact on">
+                                <MenuItem Header="AIM" Command="{StaticResource ContactOnIMCommand}" CommandParameter="AIM" />
+                                <MenuItem Header="GTalk" Command="{StaticResource ContactOnIMCommand}" CommandParameter="GTalk" />
+                                <MenuItem Header="ICQ" Command="{StaticResource ContactOnIMCommand}" CommandParameter="ICQ" />
+                                <MenuItem Header="Jabber" Command="{StaticResource ContactOnIMCommand}" CommandParameter="Jabber" />
+                                <MenuItem Header="MSN" Command="{StaticResource ContactOnIMCommand}" CommandParameter="MSN" />
+                                <MenuItem Header="Yahoo" Command="{StaticResource ContactOnIMCommand}" CommandParameter="Yahoo" />
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="Remove Contact" Command="{StaticResource RemoveSelectedCommand}" />
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
+            </DockPanel>
+            <Border BorderBrush="Gray" BorderThickness="1" Grid.Column="1" Margin="2">
+                <local:ContactViewAndEdit x:Name="contactEditor" Visibility="Collapsed" />
+            </Border>
         </Grid>
     </DockPanel>
 </Window>

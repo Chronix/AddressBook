@@ -64,6 +64,7 @@ namespace AddressBook
             }
 
             book.ChangedSinceSave = false;
+            book.SavePath = path;
 
             return book;
         }

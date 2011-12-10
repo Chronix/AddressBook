@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -24,6 +25,7 @@ namespace AddressBookClient
         public static readonly DependencyProperty CurrentBookProperty = DependencyProperty.Register("CurrentBook", typeof(ContactBook), typeof(MainWindow));
 
         private ContactBook _currentBook = null;
+        private ICollectionView _contactView = null;
 
         public ContactBook CurrentBook
         {
@@ -34,7 +36,7 @@ namespace AddressBookClient
         public MainWindow()
         {          
             InitializeComponent();
-            contactEditor.OnSave = delegate() { _currentBook.Refresh(); };
+            contactEditor.Saved += new EventHandler(contactEditor_Saved);
         }
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
@@ -42,6 +44,7 @@ namespace AddressBookClient
             Application.Current.Shutdown();
         }
 
+        #region COMMAND HANDLERS
         private void CommandBinding_New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (CheckForSave() == null) return;
@@ -160,18 +163,27 @@ namespace AddressBookClient
         {
             e.CanExecute = _currentBook != null && _currentBook.Contacts.Count > 0 && lstContacts.SelectedIndex != -1;
         }
+        #endregion
 
         private void ContactSelected(object sender, RoutedEventArgs e)
         {
             contactEditor.SetContact(((ListBoxItem)e.Source).Content as Contact);
+            contactEditor.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void SetCurrentBook(ContactBook book)
         {
             _currentBook = book;
             DataContext = book;
+            _contactView = CollectionViewSource.GetDefaultView(_currentBook.Contacts);
             OnPropertyChanged(new DependencyPropertyChangedEventArgs(CurrentBookProperty, null, book));
             if (_currentBook.Contacts.Count > 0) lstContacts.SelectedIndex = 0;
+
+            if (contactEditor != null)
+            {
+                if (_currentBook.Contacts.Count > 0) contactEditor.Visibility = System.Windows.Visibility.Visible;
+                else contactEditor.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         private bool? CheckForSave()
@@ -206,6 +218,35 @@ namespace AddressBookClient
             {
                 _currentBook.Save(sfd.FileName);
             }
+        }
+        
+        private bool TextPredStart(object item)
+        {
+            Contact ct = item as Contact;
+
+            return (ct == null || ct.FirstName.ToLower().StartsWith(txtSearch.Text.ToLower()));
+        }
+
+        private bool TextPredEmpty(object item)
+        {
+            return true;
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text)) _contactView.Filter = TextPredEmpty;
+            else _contactView.Filter = TextPredStart;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            CheckForSave();
+        }
+
+        private void contactEditor_Saved(object sender, EventArgs e)
+        {
+            _currentBook.Refresh();
+            _currentBook.ChangedSinceSave = true;
         }
     }
 }

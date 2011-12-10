@@ -51,8 +51,6 @@ namespace AddressBookClient
                 item.Value = val.ToString();
                 Items.Add(item);
             }
-
-            ImagePath = _contact.ImagePath;
         }
 
         static ContactViewModel()
@@ -67,9 +65,7 @@ namespace AddressBookClient
                 var item = Items.SingleOrDefault(cvmi => cvmi.PropertyName == prop.Name);
 
                 if (item != null) prop.SetValue(_contact, item.Value, null);
-            }
-
-            _contact.ImagePath = ImagePath;
+            }            
 
             _contact.IMAccounts.Clear();
 
